@@ -1,8 +1,8 @@
 import requests
 from telegram import ReplyKeyboardMarkup
 
-from bot_date import DICT_URL, FIRST_NOTE
 from actions import note_create, note_list_detail
+from bot_date import DICT_URL, FIRST_NOTE
 
 
 def api_registration(update, context):

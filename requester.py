@@ -37,6 +37,16 @@ class Requester():
         })
         return response
 
+    def patch_note(self, chat, note_id, mes_text):
+        url = DICT_URL['note_create']
+        url_note = f'{url}{note_id}/'
+        b_token = self.token(chat)
+        requests.patch(url_note, headers={
+            "Authorization": f"Bearer {b_token}"
+        }, data={
+            "text": f"{mes_text}",
+        })
+
     def token(self, chat):
         with open("token.txt", 'r+') as file:
             d = {}

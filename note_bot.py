@@ -3,8 +3,9 @@ import os
 from dotenv import load_dotenv
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
+from actions import (help, note_create, note_del, note_detail,
+                     note_list_detail, note_patch)
 from registration_and_token import api_registration, refresh_token
-from actions import note_detail, note_list_detail, note_create, note_del, help
 
 load_dotenv()
 
@@ -21,6 +22,10 @@ def note_processor(update, context):
     elif mes_text.isdigit():
         note_id = int(update.message.text)
         note_detail(update, context, note_id)
+    elif mes_text_spl[0] == 'patch' and mes_text_spl[1].isdigit():
+        note_id = int(mes_text_spl[1])
+        mes_text = ' '.join(mes_text_spl[2:])
+        note_patch(update, context, chat, note_id, mes_text, name)
     else:
         note_create(update, context, chat, mes_text, name)
 

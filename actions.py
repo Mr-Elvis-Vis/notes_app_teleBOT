@@ -99,6 +99,21 @@ def note_create(update, context, chat, mes_text, name):
         note_list_detail(update, context)
 
 
+def note_patch(update, context, chat, note_id, mes_text, name):
+    request = Requester()
+    response = request.patch_note(chat, note_id, mes_text)
+    button = ReplyKeyboardMarkup([
+        ['/note_list'],
+        ['/refresh_token'], ['/help']
+    ],
+        resize_keyboard=True)
+    context.bot.send_message(
+        chat_id=chat.id,
+        text=f'{name}! Заметка отредактирована!',
+        reply_markup=button
+    )
+
+
 def help(update, context):
     chat = update.effective_chat
     button = ReplyKeyboardMarkup([
